@@ -74,7 +74,7 @@ async def get_recent_activities(
     end_date: str | None = None,
     activity_type: str | None = None,
 ) -> list[dict]:
-    """Retrieve Garmin activity summaries, optionally filtered by date and type."""
+    """Retrieve full Garmin activity list records, optionally filtered by date and type."""
     return await fetch_recent_activities(
         garmin,
         limit=limit,

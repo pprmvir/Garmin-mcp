@@ -29,16 +29,4 @@ async def get_recent_activities(
     if not isinstance(data, list):
         raise RuntimeError("Unexpected Garmin activity list response format")
 
-    fields = (
-        "activityId",
-        "activityName",
-        "startTimeLocal",
-        "activityType",
-        "duration",
-        "distance",
-    )
-    return [
-        {key: activity[key] for key in fields if key in activity}
-        for activity in data
-        if isinstance(activity, dict)
-    ]
+    return data

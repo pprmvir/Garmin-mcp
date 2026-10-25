@@ -57,7 +57,7 @@ class ServiceFunctionTests(unittest.IsolatedAsyncioTestCase):
                 else:
                     client.get_json.assert_awaited_once_with(path, params=params)
 
-    async def test_recent_activities_filters_response_and_passes_filters(self):
+    async def test_recent_activities_returns_full_response_and_passes_filters(self):
         client = AsyncMock()
         client.get_json.return_value = [
             {
@@ -67,9 +67,9 @@ class ServiceFunctionTests(unittest.IsolatedAsyncioTestCase):
                 "activityType": {"typeKey": "running"},
                 "duration": 3600,
                 "distance": 10000,
-                "privateField": "excluded",
+                "averageHR": 145,
+                "splitSummaries": [{"noOfSplits": 8}],
             },
-            "not an activity",
         ]
 
         activities = await get_recent_activities(
@@ -81,14 +81,9 @@ class ServiceFunctionTests(unittest.IsolatedAsyncioTestCase):
             activity_type="running",
         )
 
-        self.assertEqual(activities, [{
-            "activityId": 123,
-            "activityName": "Morning Run",
-            "startTimeLocal": "2026-10-23T07:00:00",
-            "activityType": {"typeKey": "running"},
-            "duration": 3600,
-            "distance": 10000,
-        }])
+        self.assertIs(activities, client.get_json.return_value)
+        self.assertEqual(activities[0]["averageHR"], 145)
+        self.assertEqual(activities[0]["splitSummaries"], [{"noOfSplits": 8}])
         client.get_json.assert_awaited_once_with(
             "/activitylist-service/activities/search/activities",
             params={
