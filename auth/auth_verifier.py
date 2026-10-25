@@ -41,8 +41,11 @@ class Auth0TokenVerifier:
                 issuer=self.settings.issuer_url,
                 options={"require": ["exp", "iss", "aud", "sub"]},
             )
-        except jwt.PyJWTError:
-            logger.info("Rejected an invalid Auth0 access token")
+        except jwt.PyJWTError as error:
+            logger.info(
+                "Rejected an invalid Auth0 access token (%s)",
+                type(error).__name__,
+            )
             return None
 
         expires_at = int(claims["exp"])
