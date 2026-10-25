@@ -4,8 +4,8 @@ import httpx
 from mcp.server import MCPServer
 from mcp.server.auth.provider import AccessToken
 
-from auth_config import Auth0Settings
-from mcp_auth import build_auth_settings
+from auth.auth_config import Auth0Settings
+from auth.mcp_auth import build_auth_settings
 
 
 class StaticTokenVerifier:

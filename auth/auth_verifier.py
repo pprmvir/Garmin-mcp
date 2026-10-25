@@ -7,7 +7,7 @@ from typing import Protocol
 import jwt
 from mcp.server.auth.provider import AccessToken
 
-from auth_config import Auth0Settings
+from .auth_config import Auth0Settings
 
 logger = logging.getLogger(__name__)
 
