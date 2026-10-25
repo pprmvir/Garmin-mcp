@@ -5,8 +5,8 @@ from types import SimpleNamespace
 import jwt
 from cryptography.hazmat.primitives.asymmetric import rsa
 
-from auth_config import Auth0Settings
-from auth_verifier import Auth0TokenVerifier
+from auth.auth_config import Auth0Settings
+from auth.auth_verifier import Auth0TokenVerifier
 
 
 class StaticSigningKeyProvider:

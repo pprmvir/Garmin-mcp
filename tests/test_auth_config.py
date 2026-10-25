@@ -1,6 +1,6 @@
 import unittest
 
-from auth_config import AuthConfigurationError, load_auth0_settings
+from auth.auth_config import AuthConfigurationError, load_auth0_settings
 
 
 class Auth0ConfigurationTests(unittest.TestCase):

@@ -2,7 +2,7 @@
 
 from mcp.server.auth.settings import AuthSettings
 
-from auth_config import Auth0Settings
+from .auth_config import Auth0Settings
 
 
 def build_auth_settings(settings: Auth0Settings) -> AuthSettings:
