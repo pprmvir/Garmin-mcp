@@ -3,6 +3,8 @@ import os
 
 from mcp.server import MCPServer
 
+from auth_config import load_auth0_settings
+from auth_verifier import Auth0TokenVerifier
 from garmin.activities import (
     get_activity_details as fetch_activity_details,
     get_activity_workouts as fetch_activity_workouts,
@@ -30,10 +32,16 @@ from garmin.wellness import (
     get_wellness_activity_summaries as fetch_wellness_activity_summaries,
 )
 from garmin_client import GarminClient
+from mcp_auth import build_auth_settings
 
 logging.basicConfig(level=logging.INFO)
 
-mcp = MCPServer("Garmin Personal Fitness")
+auth0_settings = load_auth0_settings()
+mcp = MCPServer(
+    "Garmin Personal Fitness",
+    auth=build_auth_settings(auth0_settings),
+    token_verifier=Auth0TokenVerifier(auth0_settings),
+)
 garmin = GarminClient()
 
 
