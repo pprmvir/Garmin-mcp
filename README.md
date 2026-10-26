@@ -34,6 +34,35 @@ The Streamable HTTP MCP endpoint is available at:
 http://127.0.0.1:8000/mcp
 ```
 
+## Test locally with MCP Inspector
+
+Start the server with your virtual environment active and `.env` configured:
+
+```bash
+python server.py
+```
+
+In a second terminal, launch MCP Inspector (requires Node.js and npm):
+
+```bash
+npx @modelcontextprotocol/inspector
+```
+
+Open the browser URL printed by Inspector. Select **Streamable HTTP** and enter
+`http://127.0.0.1:8000/mcp`, adjusting the port to match the server's startup
+output. The local server enforces Auth0 authentication too, so configure a valid
+Auth0 access token for the server's configured audience and `read:garmin` scope.
+
+Connect, open **Tools**, and call `get_recent_activities` with:
+
+```json
+{"limit": 1}
+```
+
+The result should include the full Garmin activity record, including additional
+fields and nested data when Garmin supplies them. Inspector calls are live and
+access Garmin using your configured credentials.
+
 ## Run tests
 
 Run the full unit-test suite from the project root:

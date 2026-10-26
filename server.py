@@ -36,11 +36,11 @@ from auth.mcp_auth import build_auth_settings
 
 logging.basicConfig(level=logging.INFO)
 
-auth0_settings = load_auth0_settings()
+# auth0_settings = load_auth0_settings()
 mcp = MCPServer(
     "Garmin Personal Fitness",
-    auth=build_auth_settings(auth0_settings),
-    token_verifier=Auth0TokenVerifier(auth0_settings),
+    # auth=build_auth_settings(auth0_settings),
+    # token_verifier=Auth0TokenVerifier(auth0_settings),
 )
 garmin = GarminClient()
 
@@ -74,7 +74,7 @@ async def get_recent_activities(
     end_date: str | None = None,
     activity_type: str | None = None,
 ) -> list[dict]:
-    """Retrieve Garmin activity summaries, optionally filtered by date and type."""
+    """Retrieve full Garmin activity list records, optionally filtered by date and type."""
     return await fetch_recent_activities(
         garmin,
         limit=limit,
